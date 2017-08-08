@@ -19,6 +19,12 @@
     <!-- New Tweets css-->
     <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
 
+    <!-- All Tweets css-->
+    <link rel="stylesheet" href="/styles/all-tweets.css" type="text/css" />
+
+    <!-- Fontawsome -->
+    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
 
@@ -39,6 +45,7 @@
     <!-- Page-specific (main) content here -->
     <main class="container">
 
+      <!-- New Tweet -->
       <section class="new-tweet">
         <h2>Compose Tweet</h2>
         <form action="/tweets" method="POST" >
@@ -46,6 +53,28 @@
           <input type="submit" value="Tweet">
           <span class="counter">140</span>
         </form>
+      </section>
+
+      <!-- All Tweets -->
+      <section id="all-tweets">
+        <article class="tweet">
+          <header>
+              <img src="https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png">
+              <div class="name">Bill Fields</div>
+              <div class="handle">@MrFields<div>
+          </header>
+          <main class="tweet">
+            This is a tweet
+          </main>
+          <footer>
+            <span class="time">10 days ago</span>
+            <span class="symbols">
+              <i class="fa fa-flag" aria-hidden="true"></i>
+              <i class="fa fa-retweet" aria-hidden="true"></i>
+              <i class="fa fa-heart" aria-hidden="true"></i>
+            <span>
+          </footer>
+        </article>
       </section>
 
     <!-- Composer Char Counter -->

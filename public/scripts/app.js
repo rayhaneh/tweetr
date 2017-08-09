@@ -3,62 +3,73 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-const tweets = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": {
-        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-      },
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": {
-        "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-        "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-        "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-      },
-      "handle": "@rd" },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
-  },
-  {
-    "user": {
-      "name": "Johann von Goethe",
-      "avatars": {
-        "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-        "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-        "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-      },
-      "handle": "@johann49"
-    },
-    "content": {
-      "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-    },
-    "created_at": 1461113796368
+
+
+
+$(document).ready(function() {
+  $('#add-tweet').on('submit', function (event) {
+    event.preventDefault();
+    if (validate($(this).serializeArray()[0].value)){
+      $.ajax({
+          method: 'POST',
+          url: 'http://localhost:8080/tweets',
+          data: $(this).serialize()
+      }).then(function () {
+          loadTweets()
+      })
+      $(this).trigger("reset");
+    }
+  })
+
+  $("#add-tweet").on('click', function() {
+    $(".new-tweet .error").remove()
+  })
+
+})
+
+
+function validate (tweetText ) {
+
+  let valid     = true
+  let errorText = ""
+
+  if (tweetText.length === 0) {
+    errorText = "Your input field is empty."
   }
-]
+  else if (tweetText.length > 140) {
+    errorText = "Your tweet is more than 140 characters."
+  }
+
+  if (errorText) {
+    valid = false
+    $error = $('<div>').addClass('error').text(errorText)
+    $(".new-tweet .error").remove()
+    $(".new-tweet").append($error)
+  }
+
+  return valid
+}
 
 
 
-renderTweets(tweets)
+loadTweets()
+function loadTweets () {
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:8080/tweets',
+  }).then(function(response) {
+      renderTweets(response)
+  })
+
+}
+
+
 
 function renderTweets(tweets) {
   let tweetsContainer = $('#tweets-container')
   tweets.forEach(function(tweet) {
     let tweetsArticle = createTweetElement(tweet)
-    tweetsContainer.append(tweetsArticle)
+    tweetsContainer.prepend(tweetsArticle)
   })
 
 }
@@ -66,23 +77,28 @@ function renderTweets(tweets) {
 
 function createTweetElement(tweet) {
 
-  let $tweet = $('<article>').addClass('tweet')
+  let $article = $("<article>")
+  let $header  = $("<header>")
+  let $main    = $("<main>")
+  let $footer  = $("<footer>")
 
-  let $header = $('<article>')
-              .append("<img>").attr("src",tweet.user.avatars.small) // not sure if this works
-              .append($("<div>").addClass("name").append(tweet.user.name))
-              .append($("<div>").addClass("handle").append(tweet.user.handle))
+  $article.addClass("tweet")
 
-  let $main = $('<main>').addClass('tweet').text(tweet.content.text)
+  $header.append(`<img src='${tweet.user.avatars.small}'>`)
+  $header.append($("<div>").addClass("name").append(tweet.user.name))
+  $header.append($("<div>").addClass("handle").append(tweet.user.handle))
 
-  let $footer = $('<footer>')
-                .append("<span>").addClass("time").append(timeStamp(Date.now(),tweet.created_at))
-                .append("<span>").addClass("symbols")
-                .append("<i class='fa fa-flag' aria-hidden='true'></i>")
-                .append("<i class='fa fa-retweet' aria-hidden='true'></i>")
-                .append("<i class='fa fa-heart' aria-hidden='true'></i>")
+  $main.addClass('tweet')
+  $main.text(tweet.content.text)
 
-  $tweet = $tweet.append($header).append($main).append($footer)
+  let $time    = $("<span>").addClass("time").append("time")
+  let $symbols = $("<span>").addClass("symbols")
+  $symbols.append("<i class='fa fa-flag' aria-hidden='true'></i>")
+  $symbols.append("<i class='fa fa-retweet' aria-hidden='true'></i>")
+  $symbols.append("<i class='fa fa-heart' aria-hidden='true'></i>")
+  $footer.append(timeStamp(Date.now(),tweet.created_at)).append($symbols)
+
+  $tweet = $article.append($header).append($main).append($footer)
 
   return $tweet
 
@@ -110,11 +126,11 @@ function timeStamp(now, createTime) {
   else if (hours > 0) {
     return `${hours} hour${(hours === 1 ? '' : 's')} ago`
   }
-  else if (minutes > 0) {
+  else if (minutes > 1) {
     return `${minutes} minute${(minutes === 1 ? '' : 's')} ago`
   }
   else {
-    return `${seconds} second${(seconds === 1 ? '' : 's')} ago`
+    return `Just now`
   }
 
 }

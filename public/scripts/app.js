@@ -5,44 +5,56 @@
  */
 
 
+// Load all tweets at the begining
+loadTweets()
 
+// Add event listener
 $(document).ready(function() {
-  $('#add-tweet').on('submit', function (event) {
+
+  // Listen for new tweet submission
+  $('#add-tweet-form').on('submit', function (event) {
+
+    // Prevent default behaviour of the compose-new-tweet form
     event.preventDefault();
+
+    // Validate the form data
     if (validate($(this).serializeArray()[0].value)){
+      // Post the new tweet
       $.ajax({
           method: 'POST',
           url: 'http://localhost:8080/tweets',
           data: $(this).serialize()
       }).then(function () {
+      // Then, load all tweets
           loadTweets()
       })
+      // Reset the form after submission
       $(this).trigger("reset");
     }
   })
 
-
-
-  $("#add-tweet").on('click', function() {
-    $(".new-tweet .error").remove()
+  // Listen for clicks on the compose form and remove the error message if any
+  $("#new-tweet").on('click', function() {
+    $(".error").hide()
   })
 
-
+  // Listen for click on the compose button and slide it up/down
   $('#compose-button').on('click', function() {
-    $(".new-tweet").slideToggle()
-    $('.new-tweet textarea').focus()
+    $("#new-tweet").slideToggle()
+    $('#new-tweet textarea').focus()
   })
-
-
 
 })
 
 
+
+// Validate the compose form input (tweet text length)
 function validate (tweetText ) {
 
   let valid     = true
   let errorText = ""
 
+  // Check if the tweet text length is 0 or more than 140 and set and error message
   if (tweetText.length === 0) {
     errorText = "Your input field is empty."
   }
@@ -50,31 +62,39 @@ function validate (tweetText ) {
     errorText = "Your tweet is more than 140 characters."
   }
 
+  // Add the error message div to the DOM if there is any error
   if (errorText) {
     valid = false
     $error = $('<div>').addClass('error').text(errorText)
-    $(".new-tweet .error").remove()
-    $(".new-tweet").append($error)
+    $("#new-tweet .error").remove()
+    $("#new-tweet").append($error)
   }
 
+  // return if the form data was valid or not
   return valid
 }
 
 
 
-loadTweets()
+
+
+
+
+
+// FUNCTIONS
+
+// FUNCTION: Loads tweets by sending a GET request to /tweets
 function loadTweets () {
   $.ajax({
     method: 'GET',
-    url: 'http://localhost:8080/tweets',
+    url: '/tweets',
   }).then(function(response) {
       renderTweets(response)
   })
-
 }
 
 
-
+// FUNCTION: Renders all the tweets in the database and adds them to the DOM (one by one)
 function renderTweets(tweets) {
   let tweetsContainer = $('#tweets-container')
   tweets.forEach(function(tweet) {
@@ -85,36 +105,35 @@ function renderTweets(tweets) {
 }
 
 
+// FUNCTION: Create a tweet element (to be added to the DOM by renderTweets)
 function createTweetElement(tweet) {
 
-  let $article = $("<article>")
-  let $header  = $("<header>")
-  let $main    = $("<main>")
-  let $footer  = $("<footer>")
+  const time = timeStamp(Date.now(),tweet.created_at)
 
-  $article.addClass("tweet")
-
-  $header.append(`<img src='${tweet.user.avatars.small}'>`)
-  $header.append($("<div>").addClass("name").append(tweet.user.name))
-  $header.append($("<div>").addClass("handle").append(tweet.user.handle))
-
-  $main.addClass('tweet')
-  $main.text(tweet.content.text)
-
-  let $time    = $("<span>").addClass("time").append("time")
-  let $symbols = $("<span>").addClass("symbols")
-  $symbols.append("<i class='fa fa-flag' aria-hidden='true'></i>")
-  $symbols.append("<i class='fa fa-retweet' aria-hidden='true'></i>")
-  $symbols.append("<i class='fa fa-heart' aria-hidden='true'></i>")
-  $footer.append(timeStamp(Date.now(),tweet.created_at)).append($symbols)
-
-  $tweet = $article.append($header).append($main).append($footer)
+  let $tweet = $("<article>").addClass("tweet")
+  .append($("<header>")
+        .append(`<img src='${tweet.user.avatars.small}'>`)
+        .append($("<div>").addClass("name").text(tweet.user.name))
+        .append($("<div>").addClass("handle").text(tweet.user.handle))
+    )
+  .append($("<main>").addClass('tweet')
+        .text(tweet.content.text)
+    )
+  .append($("<footer>")
+        .append($("<span>").addClass("time").text(time))
+        .append($("<span>").addClass("symbols")
+          .append("<i class='fa fa-flag' aria-hidden='true'></i>")
+          .append("<i class='fa fa-retweet' aria-hidden='true'></i>")
+          .append("<i class='fa fa-heart' aria-hidden='true'></i>")
+          )
+    )
 
   return $tweet
 
 }
 
 
+// FUNCTION: Creates a timestamp for each tweet
 function timeStamp(now, createTime) {
 
   let milliseconds = now - createTime
@@ -144,18 +163,6 @@ function timeStamp(now, createTime) {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

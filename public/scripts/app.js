@@ -21,9 +21,19 @@ $(document).ready(function() {
     }
   })
 
+
+
   $("#add-tweet").on('click', function() {
     $(".new-tweet .error").remove()
   })
+
+
+  $('#compose-button').on('click', function() {
+    $(".new-tweet").slideToggle()
+    $('.new-tweet textarea').focus()
+  })
+
+
 
 })
 
@@ -134,9 +144,6 @@ function timeStamp(now, createTime) {
   }
 
 }
-
-
-
 
 
 

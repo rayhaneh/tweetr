@@ -29,3 +29,9 @@
 .negative {
   color: red;
 }
+
+.error{
+  font-size: 0.8em;
+  color: red;
+  padding: 10px 0;
+}

@@ -13,13 +13,13 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
-    <!-- NAV bar css-->
+    <!-- NAV bar CSS-->
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
 
-    <!-- New Tweets css-->
+    <!-- New Tweets CSS-->
     <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
 
-    <!-- All Tweets css-->
+    <!-- All Tweets CSS-->
     <link rel="stylesheet" href="/styles/all-tweets.css" type="text/css" />
 
     <!-- Fontawsome -->
@@ -30,6 +30,9 @@
 
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- Composer Char Counter -->
+    <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
 
   </head>
 
@@ -47,9 +50,9 @@
     <main class="container">
 
       <!-- New Tweet -->
-      <section class="new-tweet">
+      <section id="new-tweet">
         <h2>Compose Tweet</h2>
-        <form id="add-tweet" action="/tweets" method="POST" >
+        <form id="add-tweet-form" action="/tweets" method="POST" >
           <textarea name="text" placeholder="What are you humming about?"></textarea>
           <input type="submit" value="Tweet">
           <span class="counter">140</span>
@@ -58,28 +61,9 @@
 
       <!-- All Tweets -->
       <section id="tweets-container">
-<!--         <article class="tweet">
-          <header>
-              <img src="https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png">
-              <div class="name">Bill Fields</div>
-              <div class="handle">@MrFields<div>
-          </header>
-          <main class="tweet">
-            This is a tweet
-          </main>
-          <footer>
-            <span class="time">10 days ago</span>
-            <span class="symbols">
-              <i class="fa fa-flag" aria-hidden="true"></i>
-              <i class="fa fa-retweet" aria-hidden="true"></i>
-              <i class="fa fa-heart" aria-hidden="true"></i>
-            <span>
-          </footer>
-        </article> -->
       </section>
 
-    <!-- Composer Char Counter -->
-    <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
+    </main>
 
   </body>
 </html>

@@ -40,7 +40,17 @@ module.exports = function makeDataHelpers(db) {
           })
         callback(null)
       })
-    }
+    },
+
+    // SAVE A NEW USER
+    saveUser: function(newUser, callback) {
+      db.collection("users").insertOne(newUser, (err, result) => {
+        if (err) {
+          return callback(err)
+        }
+        callback(null)
+      })
+    },
 
 
 

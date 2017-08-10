@@ -45,6 +45,21 @@ $(document).ready(function() {
     $('#new-tweet textarea').focus()
   })
 
+
+  // Listen for clicks on like button
+  $("#tweets-container").on("click", "i.fa-heart", function() {
+    const _id = $(this).data("_id")
+    const elm = $(this)
+    $.ajax({
+        method: 'PUT',
+        url: `/tweets/${_id}/like`,
+    }).then(function () {
+    // Then, toggle the liked class
+        elm.toggleClass("liked")
+    })
+
+  })
+
 })
 
 
@@ -130,7 +145,8 @@ function createTweetElement(tweet) {
             .attr("aria-hidden",true)
             )
           .append($("<i>").addClass("fa").addClass("fa-heart")
-            .attr("aria-hidden",true).attr("id",tweet._id)
+            .addClass((tweet.like === true ? "liked": ""))
+            .attr("aria-hidden",true).data("_id",tweet._id)
             )
           )
     )

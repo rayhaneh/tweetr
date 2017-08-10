@@ -60,6 +60,13 @@ article.tweet:hover {
   display: unset;
 }
 
+.fa {
+  padding: 0 5px;
+}
+
+.liked{
+  color: red;
+}
 /*.fa { transition: all .2s ease-in-out; }*/
 /*.fa:hover { transform: scale(2); }*/
 

@@ -15,7 +15,7 @@ $(document).ready(function() {
   $('#add-tweet-form').on('submit', function (event) {
 
     // Prevent default behaviour of the compose-new-tweet form
-    event.preventDefault();
+    event.preventDefault()
 
     // Validate the form data
     if (validate($(this).serializeArray()[0].value)){
@@ -29,7 +29,7 @@ $(document).ready(function() {
           loadTweets()
       })
       // Reset the form after submission
-      $(this).trigger("reset");
+      $(this).trigger("reset")
       $("#new-tweet .counter").text('140')
     }
   })

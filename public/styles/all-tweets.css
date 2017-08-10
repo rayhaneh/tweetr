@@ -11,7 +11,7 @@ article.tweet:hover {
   border: 2px solid #6D848B;
   opacity: 1;
   color: #244751;
-  box-shadow: 0px 0px 10px #999;;
+  box-shadow: 0px 0px 10px #999;
 }
 
 /* Header of Each Tweet*/
@@ -25,7 +25,12 @@ article.tweet:hover {
   float: left;
   width: 50px;
   height: 50px;
+  opacity: 0.7;
   border-radius: 5px;
+}
+
+.tweet:hover img {
+  opacity: 1;
 }
 
 .tweet .name {
@@ -62,6 +67,10 @@ article.tweet:hover {
 
 .fa {
   padding: 0 5px;
+}
+
+.fa-heart:hover {
+  text-shadow: 1px 1px 4px #BBB;
 }
 
 .liked{

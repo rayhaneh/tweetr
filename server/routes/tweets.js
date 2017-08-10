@@ -5,6 +5,9 @@ const userHelper    = require("../lib/util/user-helper")
 const express       = require('express')
 const tweetsRoutes  = express.Router()
 
+const Mongo       = require("mongodb")
+
+
 module.exports = function(DataHelpers) {
 
   tweetsRoutes.get("/", function(req, res) {
@@ -33,6 +36,17 @@ module.exports = function(DataHelpers) {
     }
 
     DataHelpers.saveTweet(tweet, (err) => {
+      if (err) {
+        res.status(500).json({ error: err.message })
+      } else {
+        res.status(201).send()
+      }
+    })
+  })
+
+  tweetsRoutes.put("/:id/like", function(req, res) {
+    const filter = { "_id": new Mongo.ObjectID(req.params.id)}
+    DataHelpers.updateTweet(filter, (err) => {
       if (err) {
         res.status(500).json({ error: err.message })
       } else {

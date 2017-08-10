@@ -22,7 +22,7 @@ $(document).ready(function() {
       // Post the new tweet
       $.ajax({
           method: 'POST',
-          url: 'http://localhost:8080/tweets',
+          url: '/tweets',
           data: $(this).serialize()
       }).then(function () {
       // Then, load all tweets
@@ -30,6 +30,7 @@ $(document).ready(function() {
       })
       // Reset the form after submission
       $(this).trigger("reset");
+      $("#new-tweet .counter").text('140')
     }
   })
 

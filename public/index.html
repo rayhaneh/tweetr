@@ -19,6 +19,9 @@
     <!-- New Tweets CSS-->
     <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
 
+    <!--  -->
+    <link rel="stylesheet" href="/styles/log.css" type="text/css" />
+
     <!-- All Tweets CSS-->
     <link rel="stylesheet" href="/styles/all-tweets.css" type="text/css" />
 
@@ -31,6 +34,9 @@
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/app.js"></script>
 
+
+    <script src="/scripts/js-cookie.js"></script>
+
     <!-- Composer Char Counter -->
     <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
 
@@ -42,21 +48,62 @@
     <nav id="nav-bar">
       <img class="logo" src="/images/bird.png">
       <span class="header">Tweeter</span>
-      <button id="compose-button" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Compose</button>
+
+
+
+
+
+
     </nav>
+
+
 
 
     <!-- Page-specific (main) content here -->
     <main class="container">
+      <section id="current-user">
+
+      </section>
 
       <!-- New Tweet -->
-      <section id="new-tweet">
-        <h2>Compose Tweet</h2>
-        <form id="add-tweet-form" action="/tweets" method="POST" >
-          <textarea name="text" placeholder="What are you humming about?"></textarea>
-          <input type="submit" value="Tweet">
-          <span class="counter">140</span>
-        </form>
+      <section id="compose">
+      </section>
+
+     <!--  <section id="logout">
+        <button id="logout-form">Want to logout?</button>
+      </section> -->
+
+      <section id="log">
+<!--         <section id="login">
+          <h2>Login to your account</h2>
+          <form id="login-form" method="POST" action="/login">
+            <div class="form-group">
+              <label for="email">Email: </label>
+              <input id="email" type="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="password">Password: </label>
+              <input id="password" type="password" name="password" class="form-control">
+            </div>
+            <button type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+          </form>
+        </section>
+
+
+        <section id="register">
+          <h2>Create an account</h2>
+          <form id="register-form" method="POST" action="/login">
+            <div class="form-group">
+              <label for="email">Email: </label>
+              <input id="email" type="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="password">Password: </label>
+              <input id="password" type="password" name="password" class="form-control">
+            </div>
+            <button type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</button>
+          </form>
+        </section> -->
       </section>
 
       <!-- All Tweets -->

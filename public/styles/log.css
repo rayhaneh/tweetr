@@ -1,0 +1,22 @@
+#login, #register{
+  margin: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+#login button, #register button {
+  margin: 10px 0px;
+  padding: 5px 5px;
+  font-size: 1.2em;
+  color: #00705F;
+  background-color: #F5FBFA;
+  border: 2px solid #00705F;
+  border-radius: 5px;
+  outline: none;
+}
+
+#login input, #register input {
+  width: 95%;
+}

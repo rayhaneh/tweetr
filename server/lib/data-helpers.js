@@ -44,7 +44,7 @@ module.exports = function makeDataHelpers(db) {
 
     // SAVE A NEW USER
     saveUser: function(newUser, callback) {
-      db.collection("users").insertOne(newUser, (err, result) => {
+      db.collection("users").insertOne(newUser, (err) => {
         if (err) {
           return callback(err)
         }
@@ -53,7 +53,15 @@ module.exports = function makeDataHelpers(db) {
     },
 
 
-
+    //
+    getUser: function (filter, callback) {
+      db.collection("users").find(filter).toArray((err, user) => {
+        if (err) {
+          return callback(err)
+        }
+        callback(null, user[0])
+      })
+    },
 
 
 

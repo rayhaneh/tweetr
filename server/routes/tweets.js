@@ -26,9 +26,8 @@ module.exports = function(DataHelpers) {
       return
     }
 
-    const user = req.body.user ? req.body.user : userHelper.generateRandomUser()
+    const filter = {email: req.body.email}
     const tweet = {
-      user: user,
       content: {
         text: req.body.text
       },
@@ -36,13 +35,24 @@ module.exports = function(DataHelpers) {
       like: false
     }
 
-    DataHelpers.saveTweet(tweet, (err) => {
+    DataHelpers.getUser(filter, (err, user) => {
       if (err) {
         res.status(500).json({ error: err.message })
       } else {
-        res.status(201).send()
+        tweet.user = user
+        DataHelpers.saveTweet(tweet, (err) => {
+          if (err) {
+            res.status(500).json({ error: err.message })
+          } else {
+            res.status(201).send()
+          }
+        })
+
       }
     })
+
+
+
   })
 
   tweetsRoutes.put("/:id/like", function(req, res) {

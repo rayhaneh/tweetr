@@ -5,9 +5,14 @@ const PORT          = 8080
 const express       = require("express")
 const bodyParser    = require("body-parser")
 const app           = express()
+const bcrypt        = require('bcrypt')
+
+
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static("public"))
+
+
 
 
 // MONGODB SETUP
@@ -31,8 +36,14 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   // Passing the DataHelper to tweetsRoutes
   const tweetsRoutes = require("./routes/tweets")(DataHelpers)
 
+  // Passing the DataHelper to userRoutes
+  const userRoutes = require("./routes/users")(DataHelpers)
+
   // Mount the tweets routes at the "/tweets" path prefix:
   app.use("/tweets", tweetsRoutes)
+
+  // Mount the users routes at the root route
+  app.use("/", userRoutes)
 
 })
 

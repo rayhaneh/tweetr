@@ -16,10 +16,10 @@ $(document).ready(function() {
   if (Cookies.get('email')){
     // If logged in created compose form
     removedLoggedOutUserEnv()
-    createComposeTweetForm()
+    createComposeLogOutForm()
     createComposeLogOutButton()
-    addListenersToComposeButton()
-    addListenerToComposeForm()
+    addListenersToComposeLogoutButton()
+    addListenerToComposeLogoutForm()
     addListenerToLikes()
     // If logged out create login/register form
   } else {
@@ -138,7 +138,7 @@ function removedLoggedOutUserEnv(){
 }
 
 
-function createComposeTweetForm() {
+function createComposeLogOutForm() {
   $('#compose')
     .prepend($('<section>').attr("id","new-tweet")
     .append($('<h2>').text('Compose Tweet'))
@@ -148,11 +148,13 @@ function createComposeTweetForm() {
       .append($("<span>").attr("class","counter").text('140'))
       )
     )
+  $('#current-user')
+    .append($('<button>').attr("id","logout-form-button").attr("type","button").text('Logout'))
 }
 
 
 function addListenersToLoginRegisterForm() {
-  $('main.container').on('click', '#login-button', function(event) {
+  $('form#login-form').on('click', '#login-form-button', function(event) {
       const email = $('#login-form').serializeArray()[0].value
       event.preventDefault()
       event.stopPropagation()
@@ -163,16 +165,16 @@ function addListenersToLoginRegisterForm() {
       }).then(function () {
         Cookies.set('email', email)
         removedLoggedOutUserEnv()
-        createComposeTweetForm()
+        createComposeLogOutForm()
         createComposeLogOutButton()
-        addListenersToComposeButton()
-        addListenerToComposeForm()
+        addListenersToComposeLogoutButton()
+        addListenerToComposeLogoutForm()
         addListenerToLikes()
       })
     });
 
 
-  $('main.container').on('click', '#register-button', function(event) {
+  $('form#register-form').on('click', '#register-form-button', function(event) {
     const email = $('#register-form').serializeArray()[0].value
     event.preventDefault()
     event.stopPropagation()
@@ -184,10 +186,10 @@ function addListenersToLoginRegisterForm() {
       console.log()
       Cookies.set('email', email)
       removedLoggedOutUserEnv()
-      createComposeTweetForm()
+      createComposeLogOutForm()
       createComposeLogOutButton()
-      addListenersToComposeButton()
-      addListenerToComposeForm()
+      addListenersToComposeLogoutButton()
+      addListenerToComposeLogoutForm()
       addListenerToLikes()
     })
   })
@@ -245,6 +247,7 @@ function addListenerToLikes() {
 
 function removedLoggedInUserEnv(){
     $('#compose').html('')
+    $('#current-user').html('')
     $('#compose-button').remove()
     $('#logout-button').remove()
 }
@@ -266,7 +269,7 @@ function createLoginRegisterForm() {
           .append($('<input>').attr('id','password').attr('type','password').attr('name','password'))
           )
         .append($('<button>')
-          .attr('type', 'submit').attr("id","login-button")
+          .attr('type', 'submit').attr("id","login-form-button")
           .append($("<i>").addClass("fa").addClass("fa-sign-in")
             .attr("aria-hidden",true)
             )
@@ -295,7 +298,7 @@ function createLoginRegisterForm() {
           .append($('<input>').attr('id','handle').attr('type','text').attr('name','handle'))
           )
         .append($('<button>')
-          .attr('type', 'button').attr("id","register-button")
+          .attr('type', 'button').attr("id","register-form-button")
           .append($("<i>").addClass("fa").addClass("fa-user-plus")
             .attr("aria-hidden",true)
             )
@@ -363,48 +366,61 @@ function createComposeLogOutButton() {
     .append("Sign Out")
     )
 
-  $('#nav-bar').on('click', '#logout-button', function(event) {
-      Cookies.remove()
-      event.stopPropagation()
-      event.preventDefault()
 
-        let currentUser = Cookies.get('email')
-        // Post the new tweet
-        $.ajax({
-            method: 'POST',
-            url: '/logout',
-        }).then(function (event) {
-                // event.stopPropagation()
-      // event.preventDefault()
-        // Then, load all tweets
-      removedLoggedInUserEnv()
-      console.log('twice')
-      createLoginRegisterForm()
-      createLoginRegisterButton()
-      addListenersToLoginRegisterButtons()
-      addListenersToLoginRegisterForm()
-        })
-
-
-
-  })
 
 
 
 }
 
-function addListenersToComposeButton() {
-
+function addListenersToComposeLogoutButton() {
+  console.log('fasdffs')
     // Listen for click on the compose button and slide it up/down
     $('#compose-button').on('click', function() {
       $("#new-tweet").slideToggle()
       $('#new-tweet textarea').focus()
     })
+
+    $('#logout-button').on('click', function() {
+      // $("#new-tweet").slideToggle()
+      console.log('second')
+      Cookies.remove('email')
+      removedLoggedInUserEnv()
+      createLoginRegisterButton()
+      createLoginRegisterForm()
+      addListenersToLoginRegisterButtons()
+      addListenersToLoginRegisterForm()
+    })
+
+
+
+  //   $('#nav-bar').on('click', '#logout-button', function(event) {
+  //     Cookies.remove()
+  //     event.stopPropagation()
+  //     event.preventDefault()
+
+  //       let currentUser = Cookies.get('email')
+  //       // Post the new tweet
+  //       $.ajax({
+  //           method: 'POST',
+  //           url: '/logout',
+  //       }).then(function (event) {
+  //               // event.stopPropagation()
+  //     // event.preventDefault()
+  //       // Then, load all tweets
+  //     removedLoggedInUserEnv()
+  //     console.log('twice')
+  //     createLoginRegisterForm()
+  //     createLoginRegisterButton()
+  //     addListenersToLoginRegisterButtons()
+  //     addListenersToLoginRegisterForm()
+  //       })
+
+  // })
   }
 
 
 
-function addListenerToComposeForm() {
+function addListenerToComposeLogoutForm() {
 
         // Listen for new tweet submission
     $('#add-tweet-form').on('submit', function (event) {
@@ -429,6 +445,27 @@ function addListenerToComposeForm() {
         $("#new-tweet .counter").text('140')
       }
     })
+
+
+
+
+    // $('#current-user').on('click', function(event) {
+    //   Cookies.remove('email')
+    //   console.log('two')
+    //   event.stopPropagation()
+    //   event.preventDefault()
+    //   $.ajax({
+    //       method: 'POST',
+    //       url: '/logout',
+    //   }).then(function (event) {
+    //     removedLoggedInUserEnv()
+    //     console.log('test')
+    //     createLoginRegisterForm()
+    //     createLoginRegisterButton()
+    //     addListenersToLoginRegisterButtons()
+    //     addListenersToLoginRegisterForm()
+    //   })
+    // })
 
 
 
@@ -467,32 +504,32 @@ function addListenerToComposeForm() {
 
 
 
-function addListenerToLogInButton() {
-  console.log("addListenerToLogInButton")
-    $('#login-form').on("submit",function (event) {
-    //
-    const email = $(this).serializeArray()[0].value
-    event.preventDefault()
-    event.stopPropagation()
+// function addListenerToLogInButton() {
+//   console.log("addListenerToLogInButton")
+//     $('#login-form').on("submit",function (event) {
+//     //
+//     const email = $(this).serializeArray()[0].value
+//     event.preventDefault()
+//     event.stopPropagation()
 
-    $.ajax({
-        method: 'POST',
-        url: '/login',
-        data: $(this).serialize()
-    }).then(function () {
-    // Then, load all tweets
-    Cookies.set('email', email)
-    removedLoggedOutUserEnv()
-    createComposeTweetForm()
-    createComposeLogOutButton()
-    addListenersToComposeButton()
-    addListenerToLogOutButton()
+//     $.ajax({
+//         method: 'POST',
+//         url: '/login',
+//         data: $(this).serialize()
+//     }).then(function () {
+//     // Then, load all tweets
+//     Cookies.set('email', email)
+//     removedLoggedOutUserEnv()
+//     createComposeLogOutForm()
+//     createComposeLogOutButton()
+//     addListenersToComposeLogoutButton()
+//     addListenerToLogOutButton()
 
-    })
-  })
+//     })
+//   })
 
 
-}
+// }
 
 
 

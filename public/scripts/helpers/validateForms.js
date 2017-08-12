@@ -8,6 +8,9 @@ function validateRegisteration(data) {
   if (data[3].value.substring(0,1) !== '@') {
     return 'Handle should start with @ sign.'
   }
+  if (!data[0].value.match(/\S+@/)){
+    return 'Please provide a valid email address.'
+  }
   return err
 }
 

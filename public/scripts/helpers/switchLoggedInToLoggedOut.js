@@ -1,11 +1,71 @@
-function removedLoggedInUserEnv(){
+/*
+* This file includs all the function that are needed to switch the frontend from
+* the LOGGED IN state to the LOGGED OUT state
+*
+*     - FIRST STEP:   Remove all DOM elements specific to logged in state:
+*                          * compose new tweet form
+*                          * compose and logout buttons
+*
+*     - SECOND STEP:  Create all DOM elements specific to logged out state
+*                          * login button
+*                          * registration button
+*                          * login form
+*                          * registration form
+*
+*     - THIRD STEP:   Add Listeners to all newly created DOM elements:
+*                          * Add listener to login button
+*                          * Add listener to registration button
+*                          * Add listener to login form
+*                          * Add listener to registration form
+*
+*     - FORTH STEP:   Remove Listeners of like buttons
+*/
+
+
+
+
+// FIRST STEP //
+
+// Removes the following DOM elements when user logs out:
+//     - compose new tweet forms
+//     - compose and logout buttons in the nav-bar
+function removeLoggedInUserEnv(){
     $('#compose').html('')
     $('#compose-button').remove()
     $('#logout-button').remove()
 }
 
 
-function createLoginRegisterForm() {
+
+
+
+// SECOND STEP //
+
+// Create log in button
+function createLoginButton(){
+  $('#nav-bar')
+  .append($('<button>')
+    .attr("id","login-button").attr("type","submit")
+    .append($("<i>")
+      .addClass("fa").addClass("fa-sign-in").attr("aria-hidden",true)
+      )
+    .append("Sign In")
+    )
+}
+// Create registeration button
+function createRegisterationButton(){
+  $('#nav-bar')
+  .append($('<button>')
+    .attr("id","register-button").attr("type","submit")
+    .append($("<i>")
+      .addClass("fa").addClass("fa-user-plus").attr("aria-hidden",true)
+      )
+    .append("Sign Up")
+    )
+}
+
+// Create login form
+function createLoginForm() {
   $("#log")
     .append($('<section>').attr('id','login')
       .append($('<h2>').text('Login to your account'))
@@ -28,6 +88,12 @@ function createLoginRegisterForm() {
           )
         )
       )
+  // Hide it first (user can slide it down later)
+  $('#login').hide()
+}
+// Create registeration form
+function createRegisterationForm() {
+  $("#log")
     .append($('<section>').attr('id','register')
       .append($('<h2>').text('Create an account'))
       .append($('<form>')
@@ -49,237 +115,141 @@ function createLoginRegisterForm() {
           .append($('<input>').attr('id','handle').attr('type','text').attr('name','handle'))
           )
         .append($('<button>')
-          .attr('type', 'button').attr("id","register-form-button")
+          .attr('type', 'submit').attr("id","register-form-button")
           .append($("<i>").addClass("fa").addClass("fa-user-plus")
             .attr("aria-hidden",true)
             )
           .append('Sign Up')
           )
         )
-      );
-
-        $('#register').hide()
-
+      )
+  // Hide it first (user can slide it down later)
+  $('#register').hide()
 }
 
 
 
 
 
+// THIRD STEP //
 
-
-
-function createLoginRegisterButton(){
-  $('#nav-bar')
-  .append($('<button>')
-    .attr("id","login-button").attr("type","submit")
-    .append($("<i>")
-      .addClass("fa").addClass("fa-sign-in").attr("aria-hidden",true)
-      )
-    .append("Sign In")
-    )
-  .append($('<button>')
-    .attr("id","register-button").attr("type","submit")
-    .append($("<i>")
-      .addClass("fa").addClass("fa-user-plus").attr("aria-hidden",true)
-      )
-    .append("Sign Up")
-    )
+// Add listener to log in button
+function addListenerToLoginButton() {
+  $('#login-button').on('click', function() {
+    $('#register').slideUp()
+    $("#login").slideToggle()
+  })
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function createComposeLogOutButton() {
-  $('#nav-bar')
-  .append($('<button>')
-    .attr("id","compose-button").attr("type","submit")
-    .append($("<i>")
-      .addClass("fa").addClass("fa-pencil-square-o").attr("aria-hidden",true)
-      )
-    .append("Compose")
-    )
-  .append($('<button>')
-    .attr("id","logout-button").attr("type","submit")
-    .append($("<i>")
-      .addClass("fa").addClass("fa-sign-out").attr("aria-hidden",true)
-      )
-    .append("Sign Out")
-    )
-
-
-
-
-
+// Add listener to register button
+function addListenerToRegisterButton() {
+  $('#register-button').on('click', function() {
+    $('#login').slideUp()
+    $("#register").slideToggle()
+  })
 }
-
-function addListenersToComposeLogoutButton() {
-    // Listen for click on the compose button and slide it up/down
-    $('#compose-button').on('click', function() {
-      $("#new-tweet").slideToggle()
-      $('#new-tweet textarea').focus()
-    })
-
-    $('#logout-button').on('click', function() {
-      // $("#new-tweet").slideToggle()
-      Cookies.remove('email')
-      removedLoggedInUserEnv()
-      createLoginRegisterButton()
-      createLoginRegisterForm()
-      addListenersToLoginRegisterButtons()
-      addListenersToLoginRegisterForm()
-      removeListenerToLikes()
-    })
-
-
-
-  //   $('#nav-bar').on('click', '#logout-button', function(event) {
-  //     Cookies.remove()
-  //     event.stopPropagation()
-  //     event.preventDefault()
-
-  //       let currentUser = Cookies.get('email')
-  //       // Post the new tweet
-  //       $.ajax({
-  //           method: 'POST',
-  //           url: '/logout',
-  //       }).then(function (event) {
-  //               // event.stopPropagation()
-  //     // event.preventDefault()
-  //       // Then, load all tweets
-  //     removedLoggedInUserEnv()
-  //     console.log('twice')
-  //     createLoginRegisterForm()
-  //     createLoginRegisterButton()
-  //     addListenersToLoginRegisterButtons()
-  //     addListenersToLoginRegisterForm()
-  //       })
-
-  // })
-  }
-
-
-
-function addListenerToComposeLogoutForm() {
-
-        // Listen for new tweet submission
-    $('#add-tweet-form').on('submit', function (event) {
-
-      // Prevent default behaviour of the compose-new-tweet form
+// Add listener to login form after it is created
+//     - Listen for any form submission
+//     - Listen for any click on the form and remove the error (if any)
+function addListenersToLoginForm() {
+  // Listen for form submission and send an ajax call
+  $('form#login-form').on('submit', function(event) {
+      const email = $('#login-form').serializeArray()[0].value
       event.preventDefault()
-
-      // Validate the form data
-      if (validateNewTweetText($(this).serializeArray()[0].value)){
-        let currentUser = Cookies.get('email')
-        // Post the new tweet
+      event.stopPropagation()
+      let error = validateLogin($('#login-form').serializeArray())
+      if (error) {
+        $('#login .error').remove()
+        $('#login').append($('<div>').addClass('error').text(error))
+      }
+      else {
         $.ajax({
-            method: 'POST',
-            url: '/tweets',
-            data: {text: $(this).serializeArray()[0].value, email: currentUser}
-        }).then(function () {
-        // Then, load all tweets
-            loadTweets()
+          method: 'POST',
+          url: '/login',
+          data: $('#login-form').serialize()
+        }).then(function (error) {
+          if (error) {
+            $('#login .error').remove()
+            $('#login').append($('<div>').addClass('error').text(error))
+          }
+          else {
+            Cookies.set('email', email)
+            removeLoggedOutUserEnv()
+
+            createComposeButton()
+            createLogoutButton()
+            createComposeForm()
+
+            addListenerToComposeButton()
+            addListenerToLogoutButton()
+            addListenersToComposeForm()
+            addListenersToLikes()
+          }
         })
-        // Reset the form after submission
-        $(this).trigger("reset")
-        $("#new-tweet .counter").text('140')
       }
     })
-
-
-
-
-    // $('#current-user').on('click', function(event) {
-    //   Cookies.remove('email')
-    //   console.log('two')
-    //   event.stopPropagation()
-    //   event.preventDefault()
-    //   $.ajax({
-    //       method: 'POST',
-    //       url: '/logout',
-    //   }).then(function (event) {
-    //     removedLoggedInUserEnv()
-    //     console.log('test')
-    //     createLoginRegisterForm()
-    //     createLoginRegisterButton()
-    //     addListenersToLoginRegisterButtons()
-    //     addListenersToLoginRegisterForm()
-    //   })
-    // })
-
-
-
-        // Listen for clicks on the compose form and remove the error message if any
-    $("#new-tweet").on('click', function() {
-      $(".error").hide()
-    })
-
-
-
-
-  let textElm    = $("#new-tweet textarea")
-  let counterElm = textElm.closest("form").children('.counter')
-
-
-  textElm.on("input",function (event) {
-    counter = 140 - $(this).val().length
-    counterElm.text(counter)
+  // Listen for clicks on the form and remove error (if any)
+  $("section#login").on('click', function() {
     $(".error").hide()
-
-    // Adding/removing the negative class to .counter
-    // Checks if it already has that class to prevent re-adding!
-    if (counter < 0 && !counterElm.hasClass("negative")) {
-      counterElm.addClass("negative")
+  })
+}
+// Add Listener to registration form after it is created
+//     - Listen for any form submission
+//     - Listen for any click on the form and remove the error (if any)
+function addListenersToRegisterationForm() {
+  // Listen for form submission and make an ajax call
+  $('form#register-form').on('click', '#register-form-button', function(event) {
+    const email = $('#register-form').serializeArray()[0].value
+    event.preventDefault()
+    event.stopPropagation()
+    let error = validateRegisteration($('#register-form').serializeArray())
+    if (error) {
+      $('#register .error').remove()
+      $('#register').append($('<div>').addClass('error').text(error))
     }
-    else if (counter >= 0 && counterElm.hasClass("negative")) {
-      counterElm.removeClass("negative")
+    else {
+      $.ajax({
+        method: 'POST',
+        url: '/register',
+        data: $('#register-form').serialize()
+      }).then(function (err) {
+        if (err) {
+          $('#register .error').remove()
+          $('#register').append($('<div>').addClass('error').text(err))
+        }
+        else {
+          Cookies.set('email', email)
+          removeLoggedOutUserEnv()
+
+          createComposeButton()
+          createLogoutButton()
+          createComposeForm()
+
+          addListenerToComposeButton()
+          addListenerToLogoutButton()
+          addListenersToComposeForm()
+          addListenersToLikes()
+        }
+      })
     }
   })
-
-
-
+  // Listen for any clicks on the form and remove error (if any)
+  $("section#register").on('click', function() {
+    $(".error").hide()
+  })
 }
 
 
 
 
+// FORTH STEP //
 
-// function addListenerToLogInButton() {
-//   console.log("addListenerToLogInButton")
-//     $('#login-form').on("submit",function (event) {
-//     //
-//     const email = $(this).serializeArray()[0].value
-//     event.preventDefault()
-//     event.stopPropagation()
-
-//     $.ajax({
-//         method: 'POST',
-//         url: '/login',
-//         data: $(this).serialize()
-//     }).then(function () {
-//     // Then, load all tweets
-//     Cookies.set('email', email)
-//     removedLoggedOutUserEnv()
-//     createComposeLogOutForm()
-//     createComposeLogOutButton()
-//     addListenersToComposeLogoutButton()
-//     addListenerToLogOutButton()
-
-//     })
-//   })
+// Removes listener to like buttons
+// The logged out users are not able to like tweets
+function removeListenersOfLikes() {
+  $("#tweets-container").off("click", "i.fa-heart")
+}
 
 
-// }
+
 

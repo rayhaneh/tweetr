@@ -10,6 +10,8 @@
     <!-- External Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,700,700i" rel="stylesheet">
 
+    <!-- Fontawsome -->
+    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
@@ -25,22 +27,21 @@
     <!-- All Tweets CSS-->
     <link rel="stylesheet" href="/styles/all-tweets.css" type="text/css" />
 
-    <!-- Fontawsome -->
-    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
 
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/app.js"></script>
-    <script type="text/javascript" src="/scripts/helpers/validateForms.js"></script>
-    <script type="text/javascript" src="/scripts/helpers/loadTweets.js"></script>
 
+      <script type="text/javascript" src="/scripts/helpers/validateForms.js"></script>
+      <script type="text/javascript" src="/scripts/helpers/loadTweets.js"></script>
+      <script type="text/javascript" src="/scripts/helpers/switchLoggedInToLoggedOut.js"></script>
+      <script type="text/javascript" src="/scripts/helpers/switchLoggedOutToLoggedIn.js"></script>
 
+    <!-- js cookie -->
     <script src="/scripts/js-cookie.js"></script>
 
-    <!-- Composer Char Counter -->
-    <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
 
   </head>
 
@@ -50,62 +51,18 @@
     <nav id="nav-bar">
       <img class="logo" src="/images/bird.png">
       <span class="header">Tweeter</span>
-
-
-
-
-
-
     </nav>
 
 
-
-
-    <!-- Page-specific (main) content here -->
+    <!-- Page-specific (main) content -->
     <main class="container">
-      <section id="current-user">
 
-      </section>
-
-      <!-- New Tweet -->
+      <!-- New Tweet Compose Form -->
       <section id="compose">
       </section>
 
-     <!--  <section id="logout">
-        <button id="logout-form">Want to logout?</button>
-      </section> -->
-
+      <!-- Login and Register Form -->
       <section id="log">
-<!--         <section id="login">
-          <h2>Login to your account</h2>
-          <form id="login-form" method="POST" action="/login">
-            <div class="form-group">
-              <label for="email">Email: </label>
-              <input id="email" type="email" name="email" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="password">Password: </label>
-              <input id="password" type="password" name="password" class="form-control">
-            </div>
-            <button type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
-          </form>
-        </section>
-
-
-        <section id="register">
-          <h2>Create an account</h2>
-          <form id="register-form" method="POST" action="/login">
-            <div class="form-group">
-              <label for="email">Email: </label>
-              <input id="email" type="email" name="email" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="password">Password: </label>
-              <input id="password" type="password" name="password" class="form-control">
-            </div>
-            <button type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</button>
-          </form>
-        </section> -->
       </section>
 
       <!-- All Tweets -->

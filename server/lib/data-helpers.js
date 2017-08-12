@@ -26,19 +26,22 @@ module.exports = function makeDataHelpers(db) {
     },
 
 
-    // UPDATES A SINGLE TWEET
-    updateTweet: function(filter,callback) {
-      db.collection("tweets").find(filter).toArray((err, tweet) => {
+    getTweet: function(filter, callback) {
+      db.collection('tweets').find(filter).toArray((err, tweet) => {
         if (err) {
           return callback(err)
         }
-        tweet = tweet[0]
-        db.collection("tweets").updateOne(filter, { $set: {"like": !tweet.like}}, (err) => {
-            if(err) {
-              return callback(err)
-            }
-          })
-        callback(null)
+        return callback(null, tweet[0])
+      })
+    },
+
+    // UPDATES A SINGLE TWEET
+    updateTweet: function(filter, edit, callback) {
+      db.collection("tweets").findOneAndUpdate(filter, edit, (err) => {
+        if (err) {
+          return callback(err)
+        }
+        return callback(null)
       })
     },
 

@@ -174,15 +174,25 @@ function addListenersToLoginForm() {
           }
           else {
             Cookies.set('email', email)
+            // If login is successful:
+
+            // Switch the frontend from logged out state to logged in state
+            // by calling all the fuction in switchLoggedOutToLoggedIn.js:
+
+            //    - remove all DOM elemnts specific to logged out state
             removeLoggedOutUserEnv()
 
+            //    - create compose and logout buttons and compose form
             createComposeButton()
             createLogoutButton()
             createComposeForm()
 
+            //    - Add listeners to above created elemetns
             addListenerToComposeButton()
             addListenerToLogoutButton()
             addListenersToComposeForm()
+
+            //    - Add listeners to likes since logged in users can like tweets
             addListenersToLikes()
           }
         })
@@ -218,16 +228,26 @@ function addListenersToRegisterationForm() {
           $('#register').append($('<div>').addClass('error').text(err))
         }
         else {
+          // If registration is successful:
+          // Switch the frontend from logged out state to logged in state
+          // by calling all the fuction in switchLoggedOutToLoggedIn.js:
+
+          //    - set a cookie
           Cookies.set('email', email)
+          //    - remove all DOM elemnts specific to logged out state
           removeLoggedOutUserEnv()
 
+          //    - create compose and logout buttons and compose form
           createComposeButton()
           createLogoutButton()
           createComposeForm()
 
+          //    - Add listeners to above created elements
           addListenerToComposeButton()
           addListenerToLogoutButton()
           addListenersToComposeForm()
+
+          //    - Add listeners to likes since logged in users can like tweets
           addListenersToLikes()
         }
       })

@@ -94,24 +94,28 @@ function addListenerToComposeButton() {
 function addListenerToLogoutButton() {
   // Listen for click on the compose button and slide it up/down
   $('#logout-button').on('click', function() {
-    // When logout button is clicked
-    // first:
-      // Log user out by removing the cookie
+    // When logout button is clicked:
+    // Switch the frontend from logged in state to logged out state
+    // by calling all the fuction in switchLoggedinToLoggedOut.js
+
+    //      - Log user out by removing the cookie
     Cookies.remove('email')
-    // Next:
-      // Switch the frontend from logged in state to logged out state
-      // by calling all the fuction in switchLoggedinToLoggedOut.js
+    //    - remove all DOM elemnts specific to logged in state
     removeLoggedInUserEnv()
 
+    //    - create login/register buttons and forms
     createLoginButton()
     createRegisterationButton()
     createLoginForm()
     createRegisterationForm()
 
+    //    - Add listeners to above created elements
     addListenerToLoginButton()
     addListenerToRegisterButton()
     addListenersToLoginForm()
     addListenersToRegisterationForm()
+
+    //    - Remove listeners to likes since logged out users cannot like tweets
     removeListenersOfLikes()
 
   })

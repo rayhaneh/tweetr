@@ -1,4 +1,42 @@
 
+// FUNCTION: Creates a timestamp for each tweet
+function timeStamp(now, createTime) {
+
+  let milliseconds = now - createTime
+
+  let days    = Math.floor(milliseconds / 86400000)
+  let hours   = Math.floor(milliseconds / 3600000)
+  let minutes = Math.floor(milliseconds / 60000)
+  let seconds = Math.floor(milliseconds / 1000)
+
+  if (days > 7) {
+    return new Date(createTime).toDateString().substring(4,16)
+  }
+  else if (days === 7) {
+    return `A week ago`
+  }
+  else if (days > 0) {
+    return `${days} day${(days === 1 ? '' : 's')} ago`
+  }
+  else if (hours > 0) {
+    return `${hours} hour${(hours === 1 ? '' : 's')} ago`
+  }
+  else if (minutes > 1) {
+    return `${minutes} minute${(minutes === 1 ? '' : 's')} ago`
+  }
+  else {
+    return `Just now`
+  }
+
+}
+
+
+
+
+
+
+
+
 
 // FUNCTIONS
 

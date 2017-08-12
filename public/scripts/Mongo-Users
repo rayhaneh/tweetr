@@ -1,0 +1,11 @@
+db.users.insert({"name" : "Newton", "avatars" : { "small" : "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png", "regular" : "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png", "large" : "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png" }, "handle" : "@SirIsaac", "email" : "newton@mail.com" , "password" : "$2a$10$.P/in.uHjOq7BMREgpMnjecU4UDCNRtEA0YwkIOthGw2Ut4EDkHT." })
+
+
+db.users.insert({"name" : "Descartes", "avatars" : { "small" : "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png", "regular" : "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png", "large" : "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png" }, "handle" : "@rd", "email" : "descartes@mail.com", "password" : "$2a$10$ytvq6lwHOY2/UuqYU7JrIezopG0WeGI48xn.eyM9jJMqT2JLFziEy" })
+
+
+
+db.users.insert({"name" : "Johann von Goethe", "avatars" : { "small" : "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png", "regular" : "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png", "large" : "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png" }, "handle" : "@johann49", "email" : "johann@mail.com", "password" : "$2a$10$ytvq6lwHOY2/UuqYU7JrIezopG0WeGI48xn.eyM9jJMqT2JLFziEy" })
+
+
+ db.users.insert({"name" : "Jesus Hicks", "avatars" : { "small" : "https://vanillicon.com/9f60e27d29cb80e51477126053cd610f_50.png", "regular" : "https://vanillicon.com/9f60e27d29cb80e51477126053cd610f.png", "large" : "https://vanillicon.com/9f60e27d29cb80e51477126053cd610f_200.png" }, "handle" : "@DrHicks", "email" : "jhicks@mymail.com", "password" : "$2a$10$.P/in.uHjOq7BMREgpMnjecU4UDCNRtEA0YwkIOthGw2Ut4EDkHT." })

@@ -1,32 +1,26 @@
-function validateRegisteration(data) {
-  let err = ""
-  for (let i = 0; i < 4; i++){
-    if (!data[i].value.length) {
-      return 'All fields are mandatory.'
-    }
-  }
-  if (data[3].value.substring(0,1) !== '@') {
-    return 'Handle should start with @ sign.'
-  }
-  if (!data[0].value.match(/\S+@/)){
-    return 'Please provide a valid email address.'
-  }
-  return err
-}
+/*
+* This file contains all functions that validate followin form inputs
+*     - New Tweet:
+*         * New tweet text should be between 1 and 140 characters
+*
+*     - SECOND STEP:  Create all DOM elements specific to logged out state
+*                          * login button
+*                          * registration button
+*                          * login form
+*                          * registration form
+*
+*     - THIRD STEP:   Add Listeners to all newly created DOM elements:
+*                          * Add listener to login button
+*                          * Add listener to registration button
+*                          * Add listener to login form
+*                          * Add listener to registration form
+*
+*     - FORTH STEP:   Remove Listeners of like buttons
+*/
 
 
-function validateLogin(data) {
-  let err = ""
-  for (let i = 0; i < 2; i++){
-    if (!data[i].value.length) {
-      return 'All fields are mandatory.'
-    }
-  }
-  err
-}
 
-
-function validateNewTweetText (tweetText ) {
+function validateNewTweetText (tweetText) {
 
   let valid     = true
   let errorText = ""
@@ -47,6 +41,46 @@ function validateNewTweetText (tweetText ) {
     $("#new-tweet").append($error)
   }
 
-  // return if the form data was valid or not
+  // return whether the form data was valid or not
   return valid
 }
+
+
+function validateRegisteration(data) {
+
+  let err = ""
+  // Check if any of the fields are empty
+  for (let i = 0; i < 4; i++){
+    if (!data[i].value.length) {
+      return 'All fields are mandatory.'
+    }
+  }
+  // Check if the handle field starts with an @ sign
+  if (data[3].value.substring(0,1) !== '@') {
+    return 'Handle should start with @ sign.'
+  }
+
+  // Check if the email field has an @ inside it
+  if (!data[0].value.match(/\S+@/)){
+    return 'Please provide a valid email address.'
+  }
+  // Return empty string if all fields are valid
+  return err
+}
+
+
+
+function validateLogin(data) {
+  let err = ""
+  // Check if any of the login fields are empty
+  for (let i = 0; i < 2; i++){
+    if (!data[i].value.length) {
+      return 'All fields are mandatory.'
+    }
+  }
+  // Return empty string if all fields are valid
+  return err
+}
+
+
+

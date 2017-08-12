@@ -28,12 +28,38 @@ $(document).ready(function() {
     createLoginRegisterButton()
     addListenersToLoginRegisterButtons()
     addListenersToLoginRegisterForm()
+    removeListenerToLikes()
   }
 
 
 })
 
 
+
+
+function validateRegisteration(data) {
+  let err = ""
+  for (let i = 0; i < 4; i++){
+    if (!data[i].value.length) {
+      return 'All fields are mandatory.'
+    }
+  }
+  if (data[3].value.substring(0,1) !== '@') {
+    return 'Handle should start with @ sign.'
+  }
+  return err
+}
+
+
+function validateLogin(data) {
+  let err = ""
+  for (let i = 0; i < 2; i++){
+    if (!data[i].value.length) {
+      return 'All fields are mandatory.'
+    }
+  }
+  err
+}
 
 
 
@@ -120,8 +146,11 @@ function createTweetElement(tweet) {
             .attr("aria-hidden",true)
             )
           .append($("<i>").addClass("fa").addClass("fa-heart")
-            .addClass((tweet.like === true ? "liked": ""))
-            .attr("aria-hidden",true).data("_id",tweet._id)
+            .addClass((tweet.like.indexOf(Cookies.get('email')) !== -1 ? "liked": ""))
+            .attr("aria-hidden",true).data("_id",tweet._id).data("owner",tweet.user.email)
+            )
+          .append($('<span>').attr('id',"like-counter").addClass('light')
+            .append(tweet.like.length)
             )
           )
     )
@@ -148,8 +177,8 @@ function createComposeLogOutForm() {
       .append($("<span>").attr("class","counter").text('140'))
       )
     )
-  $('#current-user')
-    .append($('<button>').attr("id","logout-form-button").attr("type","button").text('Logout'))
+  // $('#current-user')
+    // .append($('<button>').attr("id","logout-form-button").attr("type","button").text('Logout'))
 }
 
 
@@ -158,19 +187,32 @@ function addListenersToLoginRegisterForm() {
       const email = $('#login-form').serializeArray()[0].value
       event.preventDefault()
       event.stopPropagation()
-      $.ajax({
-        method: 'POST',
-        url: '/login',
-        data: $('#login-form').serialize()
-      }).then(function () {
-        Cookies.set('email', email)
-        removedLoggedOutUserEnv()
-        createComposeLogOutForm()
-        createComposeLogOutButton()
-        addListenersToComposeLogoutButton()
-        addListenerToComposeLogoutForm()
-        addListenerToLikes()
-      })
+      let error = validateLogin($('#login-form').serializeArray())
+      if (error) {
+        $('#login .error').remove()
+        $('#login').append($('<div>').addClass('error').text(error))
+      }
+      else {
+        $.ajax({
+          method: 'POST',
+          url: '/login',
+          data: $('#login-form').serialize()
+        }).then(function (error) {
+          if (error) {
+            $('#login .error').remove()
+            $('#login').append($('<div>').addClass('error').text(error))
+          }
+          else {
+            Cookies.set('email', email)
+            removedLoggedOutUserEnv()
+            createComposeLogOutForm()
+            createComposeLogOutButton()
+            addListenersToComposeLogoutButton()
+            addListenerToComposeLogoutForm()
+            addListenerToLikes()
+          }
+        })
+      }
     });
 
 
@@ -178,49 +220,99 @@ function addListenersToLoginRegisterForm() {
     const email = $('#register-form').serializeArray()[0].value
     event.preventDefault()
     event.stopPropagation()
-    $.ajax({
-      method: 'POST',
-      url: '/register',
-      data: $('#register-form').serialize()
-    }).then(function () {
-      console.log()
-      Cookies.set('email', email)
-      removedLoggedOutUserEnv()
-      createComposeLogOutForm()
-      createComposeLogOutButton()
-      addListenersToComposeLogoutButton()
-      addListenerToComposeLogoutForm()
-      addListenerToLikes()
-    })
+    let error = validateRegisteration($('#register-form').serializeArray())
+    if (error) {
+      $('#register .error').remove()
+      $('#register').append($('<div>').addClass('error').text(error))
+    }
+    else {
+      $.ajax({
+        method: 'POST',
+        url: '/register',
+        data: $('#register-form').serialize()
+      }).then(function (err) {
+        if (err) {
+          $('#register .error').remove()
+          $('#register').append($('<div>').addClass('error').text(err))
+        }
+        else {
+          Cookies.set('email', email)
+          removedLoggedOutUserEnv()
+          createComposeLogOutForm()
+          createComposeLogOutButton()
+          addListenersToComposeLogoutButton()
+          addListenerToComposeLogoutForm()
+          addListenerToLikes()
+        }
+      })
+    }
   })
+
+  $("section#register").on('click', function() {
+    $(".error").hide()
+  })
+
+
+  $("section#login").on('click', function() {
+    $(".error").hide()
+  })
+
 }
 
 
 function addListenersToLoginRegisterButtons() {
   $('#login-button').on('click', function() {
-    $("#log").slideToggle()
+    $("#login").slideDown()
+    $('#register').slideUp()
   })
   $('#register-button').on('click', function() {
-    $("#log").slideToggle()
+    // $("#log").slideToggle()
+    $("#login").slideUp()
+    $('#register').slideDown()
   })
 }
 
 
 function addListenerToLikes() {
   // Listen for clicks on like button
-  $("#tweets-container").on("click", "i.fa-heart", function() {
-    const _id = $(this).data("_id")
-    const elm = $(this)
-    $.ajax({
-        method: 'PUT',
-        url: `/tweets/${_id}/like`,
-    }).then(function () {
-    // Then, toggle the liked class
-        elm.toggleClass("liked")
-    })
-  })
+  $("#tweets-container").on("click", "i.fa-heart", callback)
+
+
+
 }
 
+function removeListenerToLikes() {
+  $("#tweets-container").off("click", "i.fa-heart")
+}
+
+const callback  = function () {
+  let currentUser = Cookies.get('email')
+  if (currentUser) {
+    if ($(this).data("owner") !== currentUser){
+      let counterElm = $(this).siblings(('#like-counter'))
+      let counter = Number(counterElm.text())
+      if ($(this).hasClass("liked")) {
+        counterElm.text(counter - 1)
+      } else {
+        counterElm.text(counter + 1)
+      }
+      //
+
+
+      const _id = $(this).data("_id")
+      const elm = $(this)
+      $.ajax({
+          method: 'PUT',
+          url: `/tweets/${_id}/like`,
+          data: {email: Cookies.get('email')}
+      }).then(function () {
+      // Then, toggle the liked class
+          elm.toggleClass("liked")
+      })
+
+    }
+  }
+}
 
 
 
@@ -247,14 +339,12 @@ function addListenerToLikes() {
 
 function removedLoggedInUserEnv(){
     $('#compose').html('')
-    $('#current-user').html('')
     $('#compose-button').remove()
     $('#logout-button').remove()
 }
 
 
 function createLoginRegisterForm() {
-  console.log('createLoginRegisterForm')
   $("#log")
     .append($('<section>').attr('id','login')
       .append($('<h2>').text('Login to your account'))
@@ -306,6 +396,9 @@ function createLoginRegisterForm() {
           )
         )
       );
+
+        $('#register').hide()
+
 }
 
 
@@ -349,7 +442,6 @@ function createLoginRegisterButton(){
 
 
 function createComposeLogOutButton() {
-  console.log('createComposeLogOutButton')
   $('#nav-bar')
   .append($('<button>')
     .attr("id","compose-button").attr("type","submit")
@@ -373,7 +465,6 @@ function createComposeLogOutButton() {
 }
 
 function addListenersToComposeLogoutButton() {
-  console.log('fasdffs')
     // Listen for click on the compose button and slide it up/down
     $('#compose-button').on('click', function() {
       $("#new-tweet").slideToggle()
@@ -382,13 +473,13 @@ function addListenersToComposeLogoutButton() {
 
     $('#logout-button').on('click', function() {
       // $("#new-tweet").slideToggle()
-      console.log('second')
       Cookies.remove('email')
       removedLoggedInUserEnv()
       createLoginRegisterButton()
       createLoginRegisterForm()
       addListenersToLoginRegisterButtons()
       addListenersToLoginRegisterForm()
+      removeListenerToLikes()
     })
 
 

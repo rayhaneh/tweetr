@@ -1,13 +1,9 @@
 "use strict"
 
-const userHelper    = require("../lib/util/user-helper")
-
-const express       = require('express')
-const userRoutes  = express.Router()
-const bcrypt        = require('bcrypt')
-const md5 = require('md5')
-
-// const Mongo       = require("mongodb")
+const express    = require('express')
+const userRoutes = express.Router()
+const bcrypt     = require('bcrypt')
+const md5        = require('md5')
 
 
 module.exports = function(DataHelpers) {
@@ -35,12 +31,6 @@ module.exports = function(DataHelpers) {
       }
     })
   }),
-
-  // userRoutes.post("/logout", function(req,res) {
-  //   res.status(201).send()
-  // }),
-
-
 
 
   userRoutes.post("/register", function(req,res) {
@@ -90,8 +80,5 @@ module.exports = function(DataHelpers) {
       }
     })
   })
-
-
   return userRoutes
-
 }

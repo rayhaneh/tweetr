@@ -1,0 +1,43 @@
+@import "variables";
+
+
+#nav-bar{
+  position: fixed;
+  top: 0;
+  height: 80px;
+  width: 100%;
+      background-image: linear-gradient(to right, $green, $grey);
+
+  color: #E8FDFF;
+  padding: 0 2em;
+  z-index: 1;
+
+  .logo{
+    width: 80px;
+    height: 80px;
+    float: left;
+    }
+  .header{
+    margin-left: 10px;
+    line-height: 80px;
+    font-size: 2em;
+    float: left;
+    color: $beige;
+    }
+  button {
+    margin: 10px 20px;
+    padding: 5px 20px;
+    line-height: 40px;
+    font-size: 1.2em;
+    float: right;
+    color: $beige;
+    background-color: $green;
+    border: 2px solid $lgreen;
+    border-radius: 5px;
+    outline: none;
+    }
+  button:hover {
+    color: $beige;
+    background-color: $dgreen;
+    }
+}

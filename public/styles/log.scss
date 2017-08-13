@@ -1,0 +1,36 @@
+@import "variables";
+
+
+#login, #register{
+  margin:   30px;
+  padding:  10px 20px;
+  border-radius: 5px;
+  background-color: $grey;
+  color: $beige;
+
+  button {
+    margin: 10px 0px;
+    padding: 5px 5px;
+    font-size: 1.2em;
+    background-color: $red;
+    color: $beige;
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+    border: none;
+      .fa {
+        margin-right: 0.5em;
+      }
+    }
+
+  button: hover {
+    background-color: $dred;
+  }
+
+  input {
+    width: 100%;
+    margin: 5px 0 15px 0;
+    border: none;
+    outline-color: $red;
+    }
+}

@@ -1,0 +1,85 @@
+@import "variables";
+
+article.tweet {
+  margin: 2em;
+  border: 2px solid $lgrey;
+  border-radius: 5px;
+  opacity: 0.8;
+  color: $lgrey;
+
+  header {
+    padding: 10px;
+    background-image: linear-gradient(to right, $red, $grey);
+    height: 70px;
+    color: $beige;
+    }
+  img {
+    float: left;
+    width: 50px;
+    height: 50px;
+    opacity: 0.7;
+    border-radius: 5px;
+  }
+  .name {
+    float: left;
+    padding-left: 10px;
+    font-size: 1.5em;
+  }
+  .handle {
+    float: right;
+  }
+  main {
+    padding: 20px;
+  }
+  footer {
+    padding: 5px 10px;
+    border-top: 2px solid $lgrey;
+  }
+  .symbols {
+    color: $dgreen;
+    float: right;
+    display: none;
+  }
+
+}
+
+article.tweet:hover {
+  border: 2px solid $grey;
+  opacity: 1;
+  color: $grey;
+  box-shadow: 0px 0px 10px $grey;
+  img {
+    opacity: 1;
+  }
+  .symbols {
+    display: unset;
+  }
+}
+
+
+
+
+.fa {
+  padding: 0 5px;
+}
+
+.fa-heart:hover {
+  text-shadow: 0px 0px 4px $grey;
+}
+
+.liked{
+  color: $red;
+}
+
+
+.light{
+  color: $lgreen;
+  font-size: 0.8em;
+}
+/*.fa { transition: all .2s ease-in-out; }*/
+/*.fa:hover { transform: scale(2); }*/
+
+
+
+
+

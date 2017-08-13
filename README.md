@@ -24,6 +24,7 @@ Users should create an account to be able to tweet. Only logged-in users can "li
 ## Getting Started
 
 - Install all dependencies (using the `npm install` command).
+- To seed the database copy and paste the text in `server/data-files/Mongo-User` and `server/data-files/Mongo-tweets` into mongo shell.
 - Run the development web server using the `node server/index.js` command.
 
 

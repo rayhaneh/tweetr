@@ -1,8 +1,8 @@
 # Tweeter Project
 
-Tweeter is a simple, single-page Twitter clone. The client-side app communicates with a server via AJAX. Tweets are persisted to MongoDB and survive server restart
+Tweeter is a simple, single-page Twitter clone. The client-side app communicates with a server via AJAX. Tweets are persisted to MongoDB and survive server restart.
 
-Users should create an account to be able to tweet. Only logged-in users can "like" tweets, and they cannot "like" their own tweets. When a user clicks a tweet's "Like" button, the "Like" count is updated
+Users should create an account to be able to tweet. Only logged-in users can "like" tweets, and they cannot "like" their own tweets. When a user clicks a tweet's "Like" button, the "Like" count is updated.
 
 ## Final Product
 ![Registeration Form](https://github.com/rayhaneh/tweetr/blob/master/screetshots/SignUp.png?raw=true)

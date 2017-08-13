@@ -44,33 +44,33 @@ function removeLoggedOutUserEnv(){
 function createComposeButton() {
   $('#nav-bar')
   .append($('<button>')
-    .attr("id","compose-button").attr("type","submit")
-    .append($("<i>")
-      .addClass("fa").addClass("fa-pencil-square-o").attr("aria-hidden",true)
+    .attr('id','compose-button').attr('type','submit')
+    .append($('<i>')
+      .addClass('fa').addClass('fa-pencil-square-o').attr('aria-hidden',true)
       )
-    .append("Compose")
+    .append('Compose')
     )
 }
 // Creates the compose button
 function createLogoutButton() {
   $('#nav-bar')
   .append($('<button>')
-    .attr("id","logout-button").attr("type","submit")
-    .append($("<i>")
-      .addClass("fa").addClass("fa-sign-out").attr("aria-hidden",true)
+    .attr('id','logout-button').attr('type','submit')
+    .append($('<i>')
+      .addClass('fa').addClass('fa-sign-out').attr('aria-hidden',true)
       )
-    .append("Sign Out")
+    .append('Sign Out')
     )
 }
 // Creates the compose form
 function createComposeForm() {
   $('#compose')
-    .prepend($('<section>').attr("id","new-tweet")
+    .prepend($('<section>').attr('id','new-tweet')
     .append($('<h2>').text('Compose Tweet'))
-    .append($("<form>").attr("id","add-tweet-form").attr("action","/tweets").attr("method","POST")
-      .append($("<textarea>").attr("name","text").attr("placeholder","What are you humming about?"))
-      .append($("<input>").attr("type","submit").attr("value","tweet"))
-      .append($("<span>").attr("class","counter").text('140'))
+    .append($('<form>').attr('id','add-tweet-form').attr('action','/tweets').attr('method','POST')
+      .append($('<textarea>').attr('name','text').attr('placeholder','What are you humming about?'))
+      .append($('<input>').attr('type','submit').attr('value','tweet'))
+      .append($('<span>').attr('class','counter').text('140'))
       )
     )
 }
@@ -86,7 +86,7 @@ function createComposeForm() {
 function addListenerToComposeButton() {
   // Listen for click on the compose button and slide it up/down
   $('#compose-button').on('click', function() {
-    $("#new-tweet").slideToggle()
+    $('#new-tweet').slideToggle()
     $('#new-tweet textarea').focus()
   })
 }
@@ -104,7 +104,7 @@ function addListenerToLogoutButton() {
     removeLoggedInUserEnv()
 
     // Load tweets again
-    // This removes  "liked" class from tweets liked by the current user
+    // This removes  'liked' class from tweets liked by the current user
     loadTweets()
 
     //    - create login/register buttons and forms
@@ -147,31 +147,31 @@ function addListenersToComposeForm() {
           loadTweets()
       })
       // Reset the form after submission
-      $(this).trigger("reset")
-      $("#new-tweet .counter").text('140')
+      $(this).trigger('reset')
+      $('#new-tweet .counter').text('140')
     }
   })
 
   // Listen for any click on the compose form and remove the error message if any
-  $("#new-tweet").on('click', function() {
-    $(".error").hide()
+  $('#new-tweet').on('click', function() {
+    $('.error').hide()
   })
 
 
   // Add Listener to compose form text area and change the character counter
-  $("#new-tweet textarea").on("input",function (event) {
-    let counterElm = $(this).closest("form").children('.counter')
+  $('#new-tweet textarea').on('input',function (event) {
+    let counterElm = $(this).closest('form').children('.counter')
     counter = 140 - $(this).val().length
     counterElm.text(counter)
-    $(".error").hide()
+    $('.error').hide()
 
     // Adding/removing the negative class to .counter
     // Checks if it already has that class to prevent re-adding!
-    if (counter < 0 && !counterElm.hasClass("negative")) {
-      counterElm.addClass("negative")
+    if (counter < 0 && !counterElm.hasClass('negative')) {
+      counterElm.addClass('negative')
     }
-    else if (counter >= 0 && counterElm.hasClass("negative")) {
-      counterElm.removeClass("negative")
+    else if (counter >= 0 && counterElm.hasClass('negative')) {
+      counterElm.removeClass('negative')
     }
   })
 
@@ -186,13 +186,13 @@ function addListenersToComposeForm() {
 // Add listeners to like buttons
 function addListenersToLikes() {
   // Listen for clicks on like button
-  $("#tweets-container").on("click", "i.fa-heart", function () {
+  $('#tweets-container').on('click', 'i.fa-heart', function () {
     let currentUser = Cookies.get('email')
     if (currentUser) {
-      if ($(this).data("owner") !== currentUser){
+      if ($(this).data('owner') !== currentUser){
         let counterElm = $(this).siblings(('#like-counter'))
         let counter = Number(counterElm.text())
-        if ($(this).hasClass("liked")) {
+        if ($(this).hasClass('liked')) {
           counterElm.text(counter - 1)
         } else {
           counterElm.text(counter + 1)
@@ -200,7 +200,7 @@ function addListenersToLikes() {
         //
 
 
-        const _id = $(this).data("_id")
+        const _id = $(this).data('_id')
         const elm = $(this)
         $.ajax({
             method: 'PUT',
@@ -208,7 +208,7 @@ function addListenersToLikes() {
             data: {email: Cookies.get('email')}
         }).then(function () {
         // Then, toggle the liked class
-            elm.toggleClass("liked")
+            elm.toggleClass('liked')
         })
 
       }

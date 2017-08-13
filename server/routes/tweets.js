@@ -1,13 +1,13 @@
-"use strict"
+'use strict'
 
 const express       = require('express')
 const tweetsRoutes  = express.Router()
-const Mongo       = require("mongodb")
+const Mongo       = require('mongodb')
 
 
 module.exports = function(DataHelpers) {
 
-  tweetsRoutes.get("/", function(req, res) {
+  tweetsRoutes.get('/', function(req, res) {
     DataHelpers.getTweets((err, tweets) => {
       if (err) {
         res.status(500).json({ error: err.message })
@@ -17,7 +17,7 @@ module.exports = function(DataHelpers) {
     })
   })
 
-  tweetsRoutes.post("/", function(req, res) {
+  tweetsRoutes.post('/', function(req, res) {
     if (!req.body.text) {
       res.status(400).json({ error: 'invalid request: no data in POST body'})
       return
@@ -57,8 +57,8 @@ module.exports = function(DataHelpers) {
 
   })
 
-  tweetsRoutes.put("/:id/like", function(req, res) {
-    const filter = { "_id": new Mongo.ObjectID(req.params.id)}
+  tweetsRoutes.put('/:id/like', function(req, res) {
+    const filter = { '_id': new Mongo.ObjectID(req.params.id)}
     DataHelpers.getTweet(filter, (err, tweet) => {
       if (err) {
         res.status(500).json({ error: err.message })

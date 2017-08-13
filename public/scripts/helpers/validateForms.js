@@ -23,22 +23,22 @@
 function validateNewTweetText (tweetText) {
 
   let valid     = true
-  let errorText = ""
+  let errorText = ''
 
   // Check if the tweet text length is 0 or more than 140 and set and error message
   if (tweetText.length === 0) {
-    errorText = "Your input field is empty."
+    errorText = 'Your input field is empty.'
   }
   else if (tweetText.length > 140) {
-    errorText = "Your tweet is more than 140 characters."
+    errorText = 'Your tweet is more than 140 characters.'
   }
 
   // Add the error message div to the DOM if there is any error
   if (errorText) {
     valid = false
     $error = $('<div>').addClass('error').text(errorText)
-    $("#new-tweet .error").remove()
-    $("#new-tweet").append($error)
+    $('#new-tweet .error').remove()
+    $('#new-tweet').append($error)
   }
 
   // return whether the form data was valid or not
@@ -48,7 +48,7 @@ function validateNewTweetText (tweetText) {
 
 function validateRegisteration(data) {
 
-  let err = ""
+  let err = ''
   // Check if any of the fields are empty
   for (let i = 0; i < 4; i++){
     if (!data[i].value.length) {
@@ -71,7 +71,7 @@ function validateRegisteration(data) {
 
 
 function validateLogin(data) {
-  let err = ""
+  let err = ''
   // Check if any of the login fields are empty
   for (let i = 0; i < 2; i++){
     if (!data[i].value.length) {

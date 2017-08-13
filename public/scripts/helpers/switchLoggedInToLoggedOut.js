@@ -45,28 +45,28 @@ function removeLoggedInUserEnv(){
 function createLoginButton(){
   $('#nav-bar')
   .append($('<button>')
-    .attr("id","login-button").attr("type","submit")
-    .append($("<i>")
-      .addClass("fa").addClass("fa-sign-in").attr("aria-hidden",true)
+    .attr('id','login-button').attr('type','submit')
+    .append($('<i>')
+      .addClass('fa').addClass('fa-sign-in').attr('aria-hidden',true)
       )
-    .append("Sign In")
+    .append('Sign In')
     )
 }
 // Create registeration button
 function createRegisterationButton(){
   $('#nav-bar')
   .append($('<button>')
-    .attr("id","register-button").attr("type","submit")
-    .append($("<i>")
-      .addClass("fa").addClass("fa-user-plus").attr("aria-hidden",true)
+    .attr('id','register-button').attr('type','submit')
+    .append($('<i>')
+      .addClass('fa').addClass('fa-user-plus').attr('aria-hidden',true)
       )
-    .append("Sign Up")
+    .append('Sign Up')
     )
 }
 
 // Create login form
 function createLoginForm() {
-  $("#log")
+  $('#log')
     .append($('<section>').attr('id','login')
       .append($('<h2>').text('Login to your account'))
       .append($('<form>')
@@ -80,9 +80,9 @@ function createLoginForm() {
           .append($('<input>').attr('id','password').attr('type','password').attr('name','password'))
           )
         .append($('<button>')
-          .attr('type', 'submit').attr("id","login-form-button")
-          .append($("<i>").addClass("fa").addClass("fa-sign-in")
-            .attr("aria-hidden",true)
+          .attr('type', 'submit').attr('id','login-form-button')
+          .append($('<i>').addClass('fa').addClass('fa-sign-in')
+            .attr('aria-hidden',true)
             )
           .append('Sign In')
           )
@@ -93,7 +93,7 @@ function createLoginForm() {
 }
 // Create registeration form
 function createRegisterationForm() {
-  $("#log")
+  $('#log')
     .append($('<section>').attr('id','register')
       .append($('<h2>').text('Create an account'))
       .append($('<form>')
@@ -115,9 +115,9 @@ function createRegisterationForm() {
           .append($('<input>').attr('id','handle').attr('type','text').attr('name','handle'))
           )
         .append($('<button>')
-          .attr('type', 'submit').attr("id","register-form-button")
-          .append($("<i>").addClass("fa").addClass("fa-user-plus")
-            .attr("aria-hidden",true)
+          .attr('type', 'submit').attr('id','register-form-button')
+          .append($('<i>').addClass('fa').addClass('fa-user-plus')
+            .attr('aria-hidden',true)
             )
           .append('Sign Up')
           )
@@ -138,7 +138,7 @@ function addListenerToLoginButton() {
   $('#login-button').on('click', function() {
     $('<body>').scrollTop()
     $('#register').slideUp()
-    $("#login").slideToggle()
+    $('#login').slideToggle()
   })
 }
 
@@ -146,7 +146,7 @@ function addListenerToLoginButton() {
 function addListenerToRegisterButton() {
   $('#register-button').on('click', function() {
     $('#login').slideUp()
-    $("#register").slideToggle()
+    $('#register').slideToggle()
   })
 }
 // Add listener to login form after it is created
@@ -184,7 +184,7 @@ function addListenersToLoginForm() {
             removeLoggedOutUserEnv()
 
             // Load tweets again
-            // This will add "liked" class to tweets liked by the current user
+            // This will add 'liked' class to tweets liked by the current user
             loadTweets()
 
             //    - create compose and logout buttons and compose form
@@ -204,8 +204,8 @@ function addListenersToLoginForm() {
       }
     })
   // Listen for clicks on the form and remove error (if any)
-  $("section#login").on('click', function() {
-    $(".error").hide()
+  $('section#login').on('click', function() {
+    $('.error').hide()
   })
 }
 // Add Listener to registration form after it is created
@@ -243,7 +243,7 @@ function addListenersToRegisterationForm() {
           removeLoggedOutUserEnv()
 
           // Load tweets again
-          // This will add "liked" class to tweets liked by the current user
+          // This will add 'liked' class to tweets liked by the current user
           loadTweets()
 
           //    - create compose and logout buttons and compose form
@@ -263,8 +263,8 @@ function addListenersToRegisterationForm() {
     }
   })
   // Listen for any clicks on the form and remove error (if any)
-  $("section#register").on('click', function() {
-    $(".error").hide()
+  $('section#register').on('click', function() {
+    $('.error').hide()
   })
 }
 
@@ -276,7 +276,7 @@ function addListenersToRegisterationForm() {
 // Removes listener to like buttons
 // The logged out users are not able to like tweets
 function removeListenersOfLikes() {
-  $("#tweets-container").off("click", "i.fa-heart")
+  $('#tweets-container').off('click', 'i.fa-heart')
 }
 
 

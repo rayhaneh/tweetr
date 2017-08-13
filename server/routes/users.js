@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 const express    = require('express')
 const userRoutes = express.Router()
@@ -8,7 +8,7 @@ const md5        = require('md5')
 
 module.exports = function(DataHelpers) {
 
-  userRoutes.post("/login", function(req, res) {
+  userRoutes.post('/login', function(req, res) {
 
     const filter = {email: req.body.email}
 
@@ -16,7 +16,7 @@ module.exports = function(DataHelpers) {
       if (err) {
         res.status(401).json({ error: err.message })
       } else if (!user) {
-        res.send("Your email address is not registered.")
+        res.send('Your email address is not registered.')
       }
       else {
         let pass = false
@@ -24,7 +24,7 @@ module.exports = function(DataHelpers) {
           pass = true
         }
         if (!pass ) {
-          res.send("The email address and password does not match.")
+          res.send('The email address and password does not match.')
         }
         // req.session.user_id = req.body.email
         res.status(201).send()
@@ -33,7 +33,7 @@ module.exports = function(DataHelpers) {
   }),
 
 
-  userRoutes.post("/register", function(req,res) {
+  userRoutes.post('/register', function(req,res) {
 
     let filter = {email: req.body.email}
     DataHelpers.getUser(filter, (err, user) => {

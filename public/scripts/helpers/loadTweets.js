@@ -1,47 +1,6 @@
-
-// FUNCTION: Creates a timestamp for each tweet
-function timeStamp(now, createTime) {
-
-  let milliseconds = now - createTime
-
-  let days    = Math.floor(milliseconds / 86400000)
-  let hours   = Math.floor(milliseconds / 3600000)
-  let minutes = Math.floor(milliseconds / 60000)
-  let seconds = Math.floor(milliseconds / 1000)
-
-  if (days > 7) {
-    return new Date(createTime).toDateString().substring(4,16)
-  }
-  else if (days === 7) {
-    return `A week ago`
-  }
-  else if (days > 0) {
-    return `${days} day${(days === 1 ? '' : 's')} ago`
-  }
-  else if (hours > 0) {
-    return `${hours} hour${(hours === 1 ? '' : 's')} ago`
-  }
-  else if (minutes > 1) {
-    return `${minutes} minute${(minutes === 1 ? '' : 's')} ago`
-  }
-  else {
-    return `Just now`
-  }
-
-}
-
-
-
-
-
-
-
-
-
-// FUNCTIONS
-
-// FUNCTION: Loads tweets by sending a GET request to /tweets
+// Loads tweets by sending a GET request to /tweets
 function loadTweets () {
+  $('#tweets-container').html('')
   $.ajax({
     method: 'GET',
     url: '/tweets',
@@ -51,7 +10,7 @@ function loadTweets () {
 }
 
 
-// FUNCTION: Renders all the tweets in the database and adds them to the DOM (one by one)
+// Renders all the tweets in the database and adds them to the DOM (one by one)
 function renderTweets(tweets) {
   let tweetsContainer = $('#tweets-container')
   tweets.forEach(function(tweet) {
@@ -62,7 +21,7 @@ function renderTweets(tweets) {
 }
 
 
-// FUNCTION: Create a tweet element (to be added to the DOM by renderTweets)
+// Create a tweet element (to be added to the DOM by renderTweets)
 function createTweetElement(tweet) {
 
   const time = timeStamp(Date.now(),tweet.created_at)
@@ -94,7 +53,38 @@ function createTweetElement(tweet) {
             )
           )
     )
+  console.log(Cookies.get('email'),tweet.like.indexOf(Cookies.get('email')))
 
   return $tweet
+}
 
+
+// Creates a timestamp for each tweet
+function timeStamp(now, createTime) {
+
+  let milliseconds = now - createTime
+
+  let days    = Math.floor(milliseconds / 86400000)
+  let hours   = Math.floor(milliseconds / 3600000)
+  let minutes = Math.floor(milliseconds / 60000)
+  let seconds = Math.floor(milliseconds / 1000)
+
+  if (days > 7) {
+    return new Date(createTime).toDateString().substring(4,16)
+  }
+  else if (days === 7) {
+    return `A week ago`
+  }
+  else if (days > 0) {
+    return `${days} day${(days === 1 ? '' : 's')} ago`
+  }
+  else if (hours > 0) {
+    return `${hours} hour${(hours === 1 ? '' : 's')} ago`
+  }
+  else if (minutes > 1) {
+    return `${minutes} minute${(minutes === 1 ? '' : 's')} ago`
+  }
+  else {
+    return `Just now`
+  }
 }

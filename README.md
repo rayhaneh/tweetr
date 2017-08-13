@@ -1,6 +1,9 @@
 # Tweeter Project
 
-Tweeter is a simple, single-page Twitter clone.
+Tweeter is a simple, single-page Twitter clone. Users should create an account to be able to tweet. Only logged-in users can "like" tweets, and they cannot "like" their own tweets.
+
+## Final Product
+![Login Form](https://github.com/rayhaneh/tweetr/blob/master/screetshots/SignIn.png?raw=true)
 
 
 ## Getting Started

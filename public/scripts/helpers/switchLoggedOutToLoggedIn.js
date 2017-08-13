@@ -103,6 +103,10 @@ function addListenerToLogoutButton() {
     //    - remove all DOM elemnts specific to logged in state
     removeLoggedInUserEnv()
 
+    // Load tweets again
+    // This removes  "liked" class from tweets liked by the current user
+    loadTweets()
+
     //    - create login/register buttons and forms
     createLoginButton()
     createRegisterationButton()

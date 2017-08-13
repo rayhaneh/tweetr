@@ -136,6 +136,7 @@ function createRegisterationForm() {
 // Add listener to log in button
 function addListenerToLoginButton() {
   $('#login-button').on('click', function() {
+    $('<body>').scrollTop()
     $('#register').slideUp()
     $("#login").slideToggle()
   })
@@ -181,6 +182,10 @@ function addListenersToLoginForm() {
 
             //    - remove all DOM elemnts specific to logged out state
             removeLoggedOutUserEnv()
+
+            // Load tweets again
+            // This will add "liked" class to tweets liked by the current user
+            loadTweets()
 
             //    - create compose and logout buttons and compose form
             createComposeButton()
@@ -236,6 +241,10 @@ function addListenersToRegisterationForm() {
           Cookies.set('email', email)
           //    - remove all DOM elemnts specific to logged out state
           removeLoggedOutUserEnv()
+
+          // Load tweets again
+          // This will add "liked" class to tweets liked by the current user
+          loadTweets()
 
           //    - create compose and logout buttons and compose form
           createComposeButton()

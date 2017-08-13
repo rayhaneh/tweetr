@@ -8,14 +8,3 @@ db.tweets.insert({"user" : { "name" : "Johann von Goethe", "avatars" : { "small"
 
 db.tweets.insert({"user" : { "name" : "Newton", "avatars" : { "small" : "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png", "regular" : "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png", "large" : "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png" }, "handle" : "@SirIsaac" , "email" : "newton@mail.com"} , "content" : { "text" : "If I have seen further it is by standing on the shoulders of giants" }, "created_at" : 1461116232227, "like" : [] })
 
-
-
-db.tweets.insert({"user" : { "name" : "Jesus Hicks", "avatars" : { "small" : "https://vanillicon.com/9f60e27d29cb80e51477126053cd610f_50.png", "regular" : "https://vanillicon.com/9f60e27d29cb80e51477126053cd610f.png", "large" : "https://vanillicon.com/9f60e27d29cb80e51477126053cd610f_200.png" } , "handle" : "@DrHicks" , "email" : "jhicks@mymail.com"}, "content" : { "text" : "Sick of having to go to 2 different huts to buy pizza & sunglasses." }, "created_at" : 1502406944268, "like" : [] })
-
-
-
-db.tweets.insert({"user" : { "name" : "Augusta Perkins", "avatars" : { "small" : "https://vanillicon.com/1fa79eeea419c23adacb920d9febaee1_50.png", "regular" : "https://vanillicon.com/1fa79eeea419c23adacb920d9febaee1.png", "large" : "https://vanillicon.com/1fa79eeea419c23adacb920d9febaee1_200.png" } , "handle" : "@DrPerkins29" , "email" : "jhicks@mymail.com"}, "content" : { "text" : "Some interesting facts I learned at the children's museum, lightning bugs are actually beetles and I hate children." }, "created_at" : 1502422524942, "like" : [] })
-
-
-
-

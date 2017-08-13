@@ -7,6 +7,15 @@ const bodyParser    = require("body-parser")
 const app           = express()
 const bcrypt        = require('bcrypt')
 
+const sassMiddleware = require('node-sass-middleware');
+const path = require('path');
+app.use(sassMiddleware({
+  src:  path.join(__dirname, '../public'),
+  dest: path.join(__dirname, '../public'),
+  debug: true,
+  outputStyle: 'compressed'
+}));
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }))

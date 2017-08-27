@@ -1,7 +1,10 @@
 {
   "name": "tweeter",
   "version": "1.0.0",
-  "description": "A twitter clone by Lighthouse Labs for web bootcamp students to learn front-end dev skillz",
+  "description": "A simple, single-page Twitter clone.",
+  "engines": {
+    "node": "6.11.1"
+  },
   "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
